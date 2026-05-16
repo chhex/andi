@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Angebot – André Behr">
+  <section class="py-16">
+    <p class="text-sm uppercase tracking-widest text-stone-400 mb-4">
+      Angebot
+    </p>
+    <h1 class="text-3xl font-semibold text-stone-800 mb-12">
+      Was ich für Sie schreibe
+    </h1>
+    <div class="grid grid-cols-1 gap-8 max-w-2xl">
+      {[
+        {
+          titel: "Biographien & Lebensgeschichten",
+          text: "Ihre Geschichte professionell und würdevoll erzählt – für die Familie, die Nachwelt oder die Öffentlichkeit."
+        },
+        {
+          titel: "Klubchroniken & Jubiläumsschriften",
+          text: "Für Sportvereine, Verbände und Organisationen, die ihre Geschichte festhalten möchten."
+        },
+        {
+          titel: "Porträts & Interviews",
+          text: "Tiefgründige Porträts von Persönlichkeiten – journalistisch präzise, menschlich nah."
+        },
+        {
+          titel: "PR-Texte & Medienmitteilungen",
+          text: "Klare, wirkungsvolle Kommunikation für KMU und Organisationen ohne eigene Redaktion."
+        },
+        {
+          titel: "Reden & Laudationes",
+          text: "Festansprachen und Ehrungen, die in Erinnerung bleiben."
+        }
+      ].map(item => (
+        <div class="border-t border-stone-200 pt-6">
+          <h2 class="text-lg font-semibold text-stone-800 mb-2">{item.titel}</h2>
+          <p class="text-stone-600 leading-relaxed">{item.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

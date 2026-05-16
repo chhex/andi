@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Referenzen – André Behr">
+  <section class="py-16">
+    <p class="text-sm uppercase tracking-widest text-stone-400 mb-4">
+      Referenzen
+    </p>
+    <h1 class="text-3xl font-semibold text-stone-800 mb-8">
+      Medien & Erfahrung
+    </h1>
+    <div class="max-w-2xl text-stone-600 leading-relaxed space-y-6">
+      <p>
+        Über 40 Jahre journalistische Arbeit für führende Schweizer Medien –
+        darunter Tages-Anzeiger und NZZ.
+      </p>
+      <div class="grid grid-cols-2 gap-4 mt-8">
+        {["Tages-Anzeiger", "NZZ", "Weitere Medien"].map(medium => (
+          <div class="border border-stone-200 px-6 py-4 text-stone-700 font-medium">
+            {medium}
+          </div>
+        ))}
+      </div>
+      <p class="mt-8 text-stone-500 italic">
+        Referenzprojekte und Arbeitsproben auf Anfrage erhältlich.
+      </p>
+    </div>
+  </section>
+</Layout>
