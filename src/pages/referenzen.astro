@@ -1,5 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const referenzen = [
+  {
+    titel: "Schach-News: Carlsen und Caruana überzeugen",
+    medium: "Tages-Anzeiger",
+    typ: "link",
+    url: "https://www.tagesanzeiger.ch/schach-news-carlsen-und-caruana-ueberzeugen-in-weissenhaus-663206189448",
+    beschreibung: "Hintergrundbericht über das Schachturnier in Weissenhaus."
+  },
+  {
+    titel: "Beispiel Reportage",
+    medium: "Verlag XYZ",
+    typ: "pdf",
+    url: "/dokumente/artikel.pdf",
+    beschreibung: "Ein Buch als Beispiel der schriftstellerischen Arbeit."
+  }
+];
 ---
 
 <Layout title="Referenzen – André Behr">
@@ -7,24 +24,56 @@ import Layout from "../layouts/Layout.astro";
     <p class="text-sm uppercase tracking-widest text-stone-400 mb-4">
       Referenzen
     </p>
-    <h1 class="text-3xl font-semibold text-stone-800 mb-8">
+    <h1 class="text-3xl font-semibold text-stone-800 mb-12">
       Medien & Erfahrung
     </h1>
-    <div class="max-w-2xl text-stone-600 leading-relaxed space-y-6">
-      <p>
-        Über 40 Jahre journalistische Arbeit für führende Schweizer Medien –
-        darunter Tages-Anzeiger und NZZ.
-      </p>
-      <div class="grid grid-cols-2 gap-4 mt-8">
-        {["Tages-Anzeiger", "NZZ", "Weitere Medien"].map(medium => (
-          <div class="border border-stone-200 px-6 py-4 text-stone-700 font-medium">
-            {medium}
+
+    <div class="max-w-2xl space-y-8">
+      {referenzen.map(ref => (
+        <div class="border-t border-stone-200 pt-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs uppercase tracking-widest text-stone-400 mb-1">
+                {ref.medium}
+              </p>
+              <h2 class="text-lg font-semibold text-stone-800 mb-2">
+                {ref.titel}
+              </h2>
+              <p class="text-stone-500 text-sm leading-relaxed mb-3">
+                {ref.beschreibung}
+              </p>
+              <a
+                href={ref.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-sm text-stone-700 border border-stone-300 px-4 py-2 hover:bg-stone-100 transition-colors"
+              >
+                {ref.typ === "pdf" ? (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                    </svg>
+                    PDF öffnen
+                  </>
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Artikel lesen
+                  </>
+                )}
+              </a>
+            </div>
           </div>
-        ))}
+        </div>
+      ))}
+
+      <div class="border-t border-stone-200 pt-8 mt-8">
+        <p class="text-stone-400 italic text-sm">
+          Weitere Arbeitsproben auf Anfrage erhältlich.
+        </p>
       </div>
-      <p class="mt-8 text-stone-500 italic">
-        Referenzprojekte und Arbeitsproben auf Anfrage erhältlich.
-      </p>
     </div>
   </section>
 </Layout>
