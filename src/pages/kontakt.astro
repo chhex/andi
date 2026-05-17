@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import kontakt from "../../content/kontakt.json";
 ---
 
 <Layout title="Kontakt – André Behr">
@@ -8,32 +9,28 @@ import Layout from "../layouts/Layout.astro";
       Kontakt
     </p>
     <h1 class="text-3xl font-semibold text-stone-800 mb-8">
-      Sprechen wir.
+     {kontakt.header}
     </h1>
     <div class="max-w-xl text-stone-600 leading-relaxed space-y-6">
-      <p>
-        Sie haben eine Geschichte, die erzählt werden sollte? 
-        Ich höre zu – und bringe sie zu Papier.
-      </p>
+      <p>{kontakt.intro}</p>
       <div class="space-y-3 mt-8">
         <p>
           <span class="text-stone-400 text-sm uppercase tracking-widest">Email</span><br/>
-          <a href="mailto:info@andrebehr.ch" class="text-stone-800 hover:text-stone-600 transition-colors">
-            info@andrebehr.ch
+          <a href={`mailto:${kontakt.email}`} class="text-stone-800 hover:text-stone-600 transition-colors">
+            {kontakt.email}
           </a>
         </p>
         <p>
-  <span class="text-stone-400 text-sm uppercase tracking-widest">LinkedIn</span><br/>
-  <a 
-    href="https://www.linkedin.com/in/andré-behr-a7517a94/" 
-    target="_blank"
-    rel="noopener noreferrer"
-    class="text-stone-800 hover:text-stone-600 transition-colors"
-  >
-    André Behr
-  </a>
-</p>
-
+          <span class="text-stone-400 text-sm uppercase tracking-widest">LinkedIn</span><br/>
+          <a 
+            href={kontakt.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-stone-800 hover:text-stone-600 transition-colors"
+          >
+            {kontakt.linkedintxt}
+          </a>
+        </p>
       </div>
     </div>
   </section>

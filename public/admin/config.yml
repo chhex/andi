@@ -1,0 +1,46 @@
+
+local_backend: true
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: "home"
+    label: "Homepage"
+    files:
+      - label: "Homepage"
+        name: "home"
+        file: "content/home.json"
+        fields:
+          - { label: "Titel", name: "titel", widget: "string" }
+          - { label: "Untertitel", name: "untertitel", widget: "string" }
+          - { label: "Einleitungstext", name: "intro", widget: "text" }
+
+  - name: "ueber"
+    label: "Über mich"
+    files:
+      - label: "Über mich"
+        name: "ueber"
+        file: "content/ueber.json"
+        fields:
+          - label: "Absätze"
+            name: "absaetze"
+            widget: "list"
+            field: { label: "Absatz", name: "absatz", widget: "text" }
+
+
+  - name: "kontakt"
+    label: "Kontakt"
+    files:
+      - label: "Kontakt"
+        name: "kontakt"
+        file: "content/kontakt.json"
+        fields:
+          - { label: "Header", name: "header", widget: "string" }
+          - { label: "Intro", name: "intro", widget: "text" }
+          - { label: "E-Mail", name: "email", widget: "string" }
+          - { label: "LinkedIn URL", name: "linkedin", widget: "string" }
+          - { label: "LinkedIn Text", name: "linkedintxt", widget: "string" }

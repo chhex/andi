@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ueber from "../../content/ueber.json";
 ---
 
 <Layout title="Über mich – André Behr">
@@ -7,29 +8,19 @@ import Layout from "../layouts/Layout.astro";
     <p class="text-sm uppercase tracking-widest text-stone-400 mb-4">
       Über mich
     </p>
-    <h1 class="text-3xl font-semibold text-stone-800 mb-8">André Behr</h1>
+    <h1 class="text-3xl font-semibold text-stone-800 mb-8">
+      André Behr
+    </h1>
     <div class="flex flex-col sm:flex-row gap-12 max-w-3xl">
       <div class="text-stone-600 leading-relaxed space-y-6 flex-1">
-        <p>
-          Ich bin Journalist mit über 40 Jahren Erfahrung. Als Sportjournalist
-          habe ich für den Tages-Anzeiger, die NZZ und weitere Medien
-          geschrieben – Interviews mit bekannten Persönlichkeiten,
-          Hintergrundberichte und Porträts.
-        </p>
-        <p>
-          In dieser Zeit habe ich gelernt, wie man Menschen zum Reden bringt und
-          wie man ihre Geschichten so erzählt, dass sie berühren und bleiben.
-        </p>
-        <p>
-          Heute biete ich diese Erfahrung als freier Ghostwriter und Biograph an
-          – für Menschen, die ihre Geschichte festhalten möchten, aber selbst
-          nicht zur Feder greifen.
-        </p>
+        {ueber.absaetze.map((absatz: string) => (
+          <p>{absatz}</p>
+        ))}
       </div>
       <div class="sm:w-64 shrink-0">
-        <img
-          src="/images/andi.jpg"
-          alt="André Behr"
+        <img 
+          src="/images/andre.jpg" 
+          alt="André Behr" 
           class="w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
         />
       </div>
