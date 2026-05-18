@@ -9,7 +9,7 @@ const { title = "André Behr – Journalist & Ghostwriter" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="andre">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -17,11 +17,10 @@ const { title = "André Behr – Journalist & Ghostwriter" } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body <body class="bg-white text-stone-800 font-sans">
+	<body class="bg-base-100 text-base-content font-serif">
 		<Header />
 		<main class="max-w-4xl mx-auto px-8 py-12">
 			<slot />
 		</main>
 	</body>
 </html>
-

@@ -1,1 +1,77 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: nord, corporate, dim, sunset, lemonade, synthwave, cyberpunk, valentine, halloween, garden, forest, winter, dracula, acrylique, lofi, pastel, fantasy, wireframe, black, light, dark;
+}
+
+@plugin "daisyui/theme" {
+    name: "andre";
+    default: true;
+    color-scheme: light;
+    --color-primary: #4a6741;
+    --color-primary-content: #ffffff;
+    --color-base-100: #f8f6f1;
+    --color-base-200: #ede8df;
+    --color-base-300: #ddd8cf;
+    --color-base-content: #2c2c2c;
+}
+
+
+@layer components {
+    .page-section {
+        @apply py-16;
+    }
+
+    .page-label {
+        @apply text-sm uppercase tracking-widest text-base-content/40 mb-4;
+    }
+
+    .page-title {
+        @apply text-3xl font-medium text-base-content/70 mb-8;
+    }
+
+
+    .page-title-lg {
+        @apply text-4xl font-semibold text-base-content leading-snug mb-6;
+    }
+
+    .page-intro {
+        @apply text-lg text-base-content/60 max-w-2xl leading-relaxed mb-10;
+    }
+
+    .page-text {
+        @apply text-base-content/70 leading-relaxed;
+    }
+
+    .page-divider {
+        @apply border-t border-base-300 pt-6;
+    }
+
+    .page-divider-footer {
+        @apply border-t border-base-300 pt-8 mt-8;
+    }
+
+    .item-label {
+        @apply text-xs uppercase tracking-widest text-base-content/40 mb-1;
+    }
+
+    .item-title {
+        @apply text-lg font-semibold text-base-content mb-2;
+    }
+
+    .item-text {
+        @apply text-base-content/60 text-sm leading-relaxed mb-3;
+    }
+
+    .contact-label {
+        @apply text-base-content/40 text-sm uppercase tracking-widest;
+    }
+
+    .contact-link {
+        @apply text-base-content hover:text-base-content/60 transition-colors;
+    }
+
+    .ref-btn {
+        @apply inline-flex items-center gap-2 text-sm text-base-content/70 border border-base-300 px-4 py-2 hover:bg-base-200 transition-colors;
+    }
+}

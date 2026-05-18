@@ -4,23 +4,19 @@ import ueber from "../../content/ueber.json";
 ---
 
 <Layout title="Über mich – André Behr">
-  <section class="py-16">
-    <p class="text-sm uppercase tracking-widest text-stone-400 mb-4">
-      Über mich
-    </p>
-    <h1 class="text-3xl font-semibold text-stone-800 mb-8">
-      André Behr
-    </h1>
+  <section class="page-section">
+    <p class="page-label">Über mich</p>
+    <h1 class="page-title">André Behr</h1>
     <div class="flex flex-col sm:flex-row gap-12 max-w-3xl">
-      <div class="text-stone-600 leading-relaxed space-y-6 flex-1">
+      <div class="page-text space-y-6 flex-1">
         {ueber.absaetze.map((absatz: string) => (
           <p>{absatz}</p>
         ))}
       </div>
       <div class="sm:w-64 shrink-0">
-        <img 
-          src="/images/andre.jpg" 
-          alt="André Behr" 
+        <img
+          src="/images/andre.jpg"
+          alt="André Behr"
           class="w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
         />
       </div>

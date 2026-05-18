@@ -1,24 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import home from "../../content/home.json";
+import IconExternalLink from "../components/IconExternalLink.astro";
+
 ---
 
 <Layout title="André Behr – Journalist & Ghostwriter">
-  <section class="py-16">
-    <p class="text-sm uppercase tracking-widest text-stone-400 mb-4">
-      {home.untertitel}
-    </p>
-    <h1 class="text-4xl font-semibold text-stone-600 leading-snug mb-6">
-      {home.titel}
-    </h1>
-    <p class="text-lg text-stone-500 max-w-2xl leading-relaxed mb-10">
-      {home.intro}
-    </p>
-    <a
-      href="/kontakt"
-      class="inline-block bg-stone-600 text-white px-6 py-3 text-sm tracking-wide hover:bg-stone-500 transition-colors"
-    >
-      Kontakt aufnehmen
-    </a>
+  <section class="page-section">
+    <p class="page-label">{home.untertitel}</p>
+    <h1 class="page-title">{home.titel}</h1>
+    <p class="page-intro">{home.intro}</p>
+ <a href="/kontakt" class="ref-btn">
+  <IconExternalLink />
+  Kontakt aufnehmen
+</a>
+
+
+
   </section>
 </Layout>
