@@ -1,25 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import referenzen from "../../content/referenzen.json";
 import IconDownload from "../components/IconDownload.astro";
 import IconExternalLink from "../components/IconExternalLink.astro";
-
-
-const referenzen = [
-  {
-    titel: "Schach-News: Carlsen und Caruana überzeugen",
-    medium: "Tages-Anzeiger",
-    typ: "link",
-    url: "https://www.tagesanzeiger.ch/schach-news-carlsen-und-caruana-ueberzeugen-in-weissenhaus-663206189448",
-    beschreibung: "Hintergrundbericht über das Schachturnier in Weissenhaus.",
-  },
-  {
-    titel: "Beispiel Reportage",
-    medium: "Verlag XYZ",
-    typ: "pdf",
-    url: "/dokumente/artikel.pdf",
-    beschreibung: "Ein Buch als Beispiel der schriftstellerischen Arbeit.",
-  },
-];
 ---
 
 <Layout title="Referenzen – André Behr">
@@ -27,7 +10,7 @@ const referenzen = [
     <p class="page-label">Referenzen</p>
     <h1 class="page-title">Medien & Erfahrung</h1>
     <div class="max-w-2xl space-y-8">
-      {referenzen.map((ref) => (
+      {referenzen.referenzen.map((ref) => (
         <div class="page-divider">
           <p class="item-label">{ref.medium}</p>
           <h2 class="item-title">{ref.titel}</h2>
@@ -39,15 +22,9 @@ const referenzen = [
             class="ref-btn"
           >
             {ref.typ === "pdf" ? (
-              <>
-                <IconDownload />
-                PDF öffnen
-              </>
+              <><IconDownload /> PDF öffnen</>
             ) : (
-              <>
-                <IconExternalLink />
-                Artikel lesen
-              </>
+              <><IconExternalLink /> Artikel lesen</>
             )}
           </a>
         </div>

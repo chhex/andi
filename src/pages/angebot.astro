@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import angebot from "../../content/angebot.json";
 ---
 
 <Layout title="Angebot – André Behr">
@@ -7,28 +8,7 @@ import Layout from "../layouts/Layout.astro";
     <p class="page-label">Angebot</p>
     <h1 class="page-title">Was ich für Sie schreibe</h1>
     <div class="grid grid-cols-1 gap-8 max-w-2xl">
-      {[
-        {
-          titel: "Biographien & Lebensgeschichten",
-          text: "Ihre Geschichte professionell und interessant erzählt – für die Familie, die Nachwelt oder die Öffentlichkeit.",
-        },
-        {
-          titel: "Klubchroniken & Jubiläumsschriften",
-          text: "Für Sportvereine, Verbände und Organisationen, die ihre Geschichte festhalten möchten.",
-        },
-        {
-          titel: "Porträts & Interviews",
-          text: "Tiefgründige Porträts von Persönlichkeiten – journalistisch präzise, menschlich nah.",
-        },
-        {
-          titel: "PR-Texte & Medienmitteilungen",
-          text: "Klare, wirkungsvolle Kommunikation für KMU und Organisationen ohne eigene Redaktion.",
-        },
-        {
-          titel: "Reden & Laudationes",
-          text: "Festansprachen und Ehrungen, die in Erinnerung bleiben.",
-        },
-      ].map((item) => (
+      {angebot.angebote.map((item) => (
         <div class="page-divider">
           <h2 class="item-title">{item.titel}</h2>
           <p class="page-text">{item.text}</p>

@@ -1,0 +1,18 @@
+{
+  "referenzen": [
+    {
+      "titel": "Schach-News: Carlsen und Caruana überzeugen",
+      "medium": "Tages-Anzeiger, Test",
+      "typ": "link",
+      "url": "https://www.tagesanzeiger.ch/schach-news-carlsen-und-caruana-ueberzeugen-in-weissenhaus-663206189448",
+      "beschreibung": "Hintergrundbericht über das Schachturnier in Weissenhaus."
+    },
+    {
+      "titel": "Beispiel Reportage",
+      "medium": "Verlag XYZ",
+      "typ": "pdf",
+      "url": "/dokumente/artikel.pdf",
+      "beschreibung": "Ein Buch als Beispiel der schriftstellerischen Arbeit."
+    }
+  ]
+}

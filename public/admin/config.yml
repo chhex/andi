@@ -44,3 +44,38 @@ collections:
           - { label: "E-Mail", name: "email", widget: "string" }
           - { label: "LinkedIn URL", name: "linkedin", widget: "string" }
           - { label: "LinkedIn Text", name: "linkedintxt", widget: "string" }
+
+  - name: "angebot"
+    label: "Angebot"
+    files:
+      - label: "Angebot"
+        name: "angebot"
+        file: "content/angebot.json"
+        fields:
+          - label: "Angebote"
+            name: "angebote"
+            widget: "list"
+            fields:
+              - { label: "Titel", name: "titel", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+
+  - name: "referenzen"
+    label: "Referenzen"
+    files:
+      - label: "Referenzen"
+        name: "referenzen"
+        file: "content/referenzen.json"
+        fields:
+          - label: "Referenzen"
+            name: "referenzen"
+            widget: "list"
+            fields:
+              - { label: "Titel", name: "titel", widget: "string" }
+              - { label: "Medium", name: "medium", widget: "string" }
+              - { label: "Beschreibung", name: "beschreibung", widget: "text" }
+              - { label: "URL", name: "url", widget: "string" }
+              - label: "Typ"
+                name: "typ"
+                widget: "select"
+                options: ["link", "pdf"]
+

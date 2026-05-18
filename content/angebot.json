@@ -1,0 +1,24 @@
+{
+  "angebote": [
+    {
+      "titel": "Biographien & Lebensgeschichten",
+      "text": "Ihre Geschichte professionell und interessant erzählt – für die Familie, die Nachwelt oder die Öffentlichkeit."
+    },
+    {
+      "titel": "Klubchroniken & Jubiläumsschriften",
+      "text": "Für Sportvereine, Verbände und Organisationen, die ihre Geschichte festhalten möchten."
+    },
+    {
+      "titel": "Porträts & Interviews",
+      "text": "Tiefgründige Porträts von Persönlichkeiten – journalistisch präzise, menschlich nah."
+    },
+    {
+      "titel": "PR-Texte & Medienmitteilungen",
+      "text": "Klare, wirkungsvolle Kommunikation für KMU und Organisationen ohne eigene Redaktion."
+    },
+    {
+      "titel": "Reden & Laudationes",
+      "text": "Festansprachen und Ehrungen, die in Erinnerung bleiben."
+    }
+  ]
+}
