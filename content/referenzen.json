@@ -2,17 +2,50 @@
   "referenzen": [
     {
       "titel": "Schach-News: Carlsen und Caruana überzeugen",
-      "medium": "Tages-Anzeiger, Test",
+      "medium": "Tages-Anzeiger",
       "typ": "link",
       "url": "https://www.tagesanzeiger.ch/schach-news-carlsen-und-caruana-ueberzeugen-in-weissenhaus-663206189448",
-      "beschreibung": "Hintergrundbericht über das Schachturnier in Weissenhaus."
+      "beschreibung": "Hintergrundbericht über das Schachturnier in Weissenhaus.",
+      "embed": ""
     },
     {
       "titel": "Beispiel Reportage",
       "medium": "Verlag XYZ",
       "typ": "pdf",
       "url": "/dokumente/artikel.pdf",
-      "beschreibung": "Ein Buch als Beispiel der schriftstellerischen Arbeit."
+      "beschreibung": "Ein Buch als Beispiel der schriftstellerischen Arbeit.",
+      "embed": ""
+    },
+    {
+      "titel": "Beispiel Youtube Video als Externer Link",
+      "medium": "Whiskey Before Breakfast Channel",
+      "typ": "video",
+      "url": "https://www.youtube.com/embed/qo9fP2d-bsM",
+      "embed": "https://www.youtube.com/embed/qo9fP2d-bsM",
+      "beschreibung": "Whiskey Before Breakfast - ein Beispiel Video Interview auf Youtube."
+    },
+    {
+      "titel": "Lokales gespeichertes Video (mp4) Beispiel",
+      "medium": "Guitar Lessons Channel",
+      "typ": "video",
+      "embed": "/video/BillyInTheLowgroundImprov1.mp4",
+      "beschreibung": "Jake Workman - Billy In The Lowground Improv - ein Beispiel Video Interview als mp4 Datei."
+    },
+    {
+      "titel": "Lokales Audio Beispiel",
+      "medium": "Beispiel Radio",
+      "typ": "audio",
+      "url": "https://www.srf.ch",
+      "embed": "/audio/texas-gales.mp3",
+      "beschreibung": "Ein Beispiel Radio Beitrag."
+    },
+    {
+      "titel": "Foto Reportage Beispiel",
+      "medium": "NZZ",
+      "typ": "bild",
+      "url": "/images/andre.jpg",
+      "embed": "/images/andre.jpg",
+      "beschreibung": "Ein Beispiel Foto Reportage."
     }
   ]
 }

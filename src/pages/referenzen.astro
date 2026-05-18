@@ -3,6 +3,29 @@ import Layout from "../layouts/Layout.astro";
 import referenzen from "../../content/referenzen.json";
 import IconDownload from "../components/IconDownload.astro";
 import IconExternalLink from "../components/IconExternalLink.astro";
+import IconVideo from "../components/IconVideo.astro";
+import IconAudio from "../components/IconAudio.astro";
+import IconBild from "../components/IconBild.astro";
+
+const getIcon = (typ: string) => {
+  switch(typ) {
+    case "pdf": return IconDownload;
+    case "video": return IconVideo;
+    case "audio": return IconAudio;
+    case "bild": return IconBild;
+    default: return IconExternalLink;
+  }
+};
+
+const getLabel = (typ: string) => {
+  switch(typ) {
+    case "pdf": return "PDF öffnen";
+    case "video": return "Video ansehen";
+    case "audio": return "Audio anhören";
+    case "bild": return "Bild ansehen";
+    default: return "Artikel lesen";
+  }
+};
 ---
 
 <Layout title="Referenzen – André Behr">
@@ -10,25 +33,69 @@ import IconExternalLink from "../components/IconExternalLink.astro";
     <p class="page-label">Referenzen</p>
     <h1 class="page-title">Medien & Erfahrung</h1>
     <div class="max-w-2xl space-y-8">
-      {referenzen.referenzen.map((ref) => (
-        <div class="page-divider">
-          <p class="item-label">{ref.medium}</p>
-          <h2 class="item-title">{ref.titel}</h2>
-          <p class="item-text">{ref.beschreibung}</p>
-          <a
-            href={ref.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="ref-btn"
-          >
-            {ref.typ === "pdf" ? (
-              <><IconDownload /> PDF öffnen</>
-            ) : (
-              <><IconExternalLink /> Artikel lesen</>
+      {referenzen.referenzen.map((ref) => {
+        const Icon = getIcon(ref.typ);
+        const label = getLabel(ref.typ);
+        return (
+          <div class="page-divider">
+            <p class="item-label">{ref.medium}</p>
+            <h2 class="item-title">{ref.titel}</h2>
+            <p class="item-text">{ref.beschreibung}</p>
+
+            {ref.typ === "video" && ref.embed && (
+                ref.embed.includes("youtube") || ref.embed.includes("vimeo") ? (
+    <div class="mt-4 aspect-video w-full">
+      <iframe
+        src={ref.embed}
+        class="w-full h-full"
+        allowfullscreen
+        loading="lazy"
+      />
+    </div>
+  ) : (
+    <div class="mt-4">
+      <video controls class="w-full">
+        <source src={ref.embed} />
+        Ihr Browser unterstützt kein Video.
+      </video>
+    </div>
+  )
+)}
+
+
+            {ref.typ === "audio" && ref.embed && (
+              <div class="mt-4">
+                <audio controls class="w-full">
+                  <source src={ref.embed} />
+                  Ihr Browser unterstützt kein Audio.
+                </audio>
+              </div>
             )}
-          </a>
-        </div>
-      ))}
+
+            {ref.typ === "bild" && ref.embed && (
+              <div class="mt-4">
+                <img
+                  src={ref.embed}
+                  alt={ref.titel}
+                  class="w-full object-cover"
+                />
+              </div>
+            )}
+
+            {(!ref.embed || ref.typ === "link" || ref.typ === "pdf") && (
+              <a
+                href={ref.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ref-btn mt-4"
+              >
+                <Icon />
+                {label}
+              </a>
+            )}
+          </div>
+        );
+      })}
       <div class="page-divider-footer">
         <p class="page-text italic text-sm">
           Weitere Arbeitsproben auf Anfrage erhältlich.
