@@ -1,4 +1,7 @@
 ---
+const path = Astro.url.pathname;
+const navClass = (href: string) =>
+  `hover:text-base-content transition-colors ${path === href ? 'text-base-content' : ''}`;
 ---
 
 <header class="w-full border-b border-base-300 bg-base-100 py-6 px-8">
@@ -8,11 +11,11 @@
     </a>
     <div class="flex items-center gap-8">
       <nav class="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm text-base-content/60">
-        <a href="/" class="hover:text-base-content transition-colors">Home</a>
-        <a href="/ueber-mich" class="hover:text-base-content transition-colors">Über mich</a>
-        <a href="/angebot" class="hover:text-base-content transition-colors">Angebot</a>
-        <a href="/referenzen" class="hover:text-base-content transition-colors">Referenzen</a>
-        <a href="/kontakt" class="hover:text-base-content transition-colors">Kontakt</a>
+        <a href="/" class={navClass('/')}>Home</a>
+        <a href="/ueber-mich" class={navClass('/ueber-mich')}>Über mich</a>
+        <a href="/angebot" class={navClass('/angebot')}>Angebot</a>
+        <a href="/referenzen" class={navClass('/referenzen')}>Referenzen</a>
+        <a href="/kontakt" class={navClass('/kontakt')}>Kontakt</a>
       </nav>
       <div class="flex items-center gap-4">
         <select id="theme-switcher" class="select select-sm text-xs">

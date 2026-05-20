@@ -10,6 +10,9 @@ const {
 	title = "André Behr – Journalist & Ghostwriter",
 	description = "Über 40 Jahre Erfahrung als Sportjournalist. André Behr schreibt Biographien, Porträts und Texte für Menschen, die ihre Geschichte professionell erzählt haben möchten."
 } = Astro.props;
+
+const canonicalUrl = Astro.url.href;
+const ogImage = Astro.site ? new URL('/images/andre.jpg', Astro.site).href : null;
 ---
 
 <!doctype html>
@@ -23,7 +26,9 @@ const {
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:locale" content="de_CH" />
+		{ogImage && <meta property="og:image" content={ogImage} />}
 		<title>{title}</title>
 		<script is:inline>
 			const t = localStorage.getItem('theme') || 'andre';

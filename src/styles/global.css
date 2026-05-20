@@ -10,10 +10,24 @@
     color-scheme: light;
     --color-primary: #4a6741;
     --color-primary-content: #ffffff;
+    --color-secondary: #8b7355;
+    --color-secondary-content: #ffffff;
+    --color-accent: #c17f3b;
+    --color-accent-content: #ffffff;
+    --color-neutral: #4a4845;
+    --color-neutral-content: #f8f6f1;
     --color-base-100: #f8f6f1;
     --color-base-200: #ede8df;
     --color-base-300: #ddd8cf;
     --color-base-content: #2c2c2c;
+    --color-info: #4a7ea1;
+    --color-info-content: #ffffff;
+    --color-success: #4a7a4a;
+    --color-success-content: #ffffff;
+    --color-warning: #c17f3b;
+    --color-warning-content: #ffffff;
+    --color-error: #a04040;
+    --color-error-content: #ffffff;
 }
 
 

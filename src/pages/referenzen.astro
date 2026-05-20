@@ -47,6 +47,7 @@ const getLabel = (typ: string) => {
     <div class="mt-4 aspect-video w-full">
       <iframe
         src={ref.embed}
+        title={ref.titel}
         class="w-full h-full"
         allowfullscreen
         loading="lazy"
@@ -55,7 +56,7 @@ const getLabel = (typ: string) => {
   ) : (
     <div class="mt-4">
       <video controls class="w-full">
-        <source src={ref.embed} />
+        <source src={ref.embed} type="video/mp4" />
         Ihr Browser unterstützt kein Video.
       </video>
     </div>
@@ -66,7 +67,7 @@ const getLabel = (typ: string) => {
             {ref.typ === "audio" && ref.embed && (
               <div class="mt-4">
                 <audio controls class="w-full">
-                  <source src={ref.embed} />
+                  <source src={ref.embed} type="audio/mpeg" />
                   Ihr Browser unterstützt kein Audio.
                 </audio>
               </div>
@@ -78,11 +79,12 @@ const getLabel = (typ: string) => {
                   src={ref.embed}
                   alt={ref.titel}
                   class="w-full object-cover"
+                  loading="lazy"
                 />
               </div>
             )}
 
-            {(!ref.embed || ref.typ === "link" || ref.typ === "pdf") && (
+            {ref.url && (!ref.embed || ref.typ === "link" || ref.typ === "pdf") && (
               <a
                 href={ref.url}
                 target="_blank"
