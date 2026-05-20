@@ -31,10 +31,6 @@
     }
 
 
-    .page-title-lg {
-        @apply text-4xl font-semibold text-base-content leading-snug mb-6;
-    }
-
     .page-intro {
         @apply text-lg text-base-content/60 max-w-2xl leading-relaxed mb-10;
     }

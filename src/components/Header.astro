@@ -71,9 +71,7 @@
 
 <script>
   const switcher = document.getElementById('theme-switcher') as HTMLSelectElement;
-  const saved = localStorage.getItem('theme') || 'andre';
-  document.documentElement.setAttribute('data-theme', saved);
-  switcher.value = saved;
+  switcher.value = document.documentElement.getAttribute('data-theme') || 'andre';
   switcher.addEventListener('change', (e) => {
     const theme = (e.target as HTMLSelectElement).value;
     document.documentElement.setAttribute('data-theme', theme);

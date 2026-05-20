@@ -20,7 +20,7 @@
       "titel": "Beispiel Youtube Video als Externer Link",
       "medium": "Whiskey Before Breakfast Channel",
       "typ": "video",
-      "url": "https://www.youtube.com/embed/qo9fP2d-bsM",
+      "url": "https://www.youtube.com/watch?v=qo9fP2d-bsM",
       "embed": "https://www.youtube.com/embed/qo9fP2d-bsM",
       "beschreibung": "Whiskey Before Breakfast - ein Beispiel Video Interview auf Youtube."
     },
@@ -28,6 +28,7 @@
       "titel": "Lokales gespeichertes Video (mp4) Beispiel",
       "medium": "Guitar Lessons Channel",
       "typ": "video",
+      "url": "",
       "embed": "/video/BillyInTheLowgroundImprov1.mp4",
       "beschreibung": "Jake Workman - Billy In The Lowground Improv - ein Beispiel Video Interview als mp4 Datei."
     },

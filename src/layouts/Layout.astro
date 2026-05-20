@@ -4,18 +4,31 @@ import Header from "../components/Header.astro";
 
 interface Props {
 	title?: string;
+	description?: string;
 }
-const { title = "André Behr – Journalist & Ghostwriter" } = Astro.props;
+const {
+	title = "André Behr – Journalist & Ghostwriter",
+	description = "Über 40 Jahre Erfahrung als Sportjournalist. André Behr schreibt Biographien, Porträts und Texte für Menschen, die ihre Geschichte professionell erzählt haben möchten."
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="de" data-theme="halloween">
+<html lang="de" data-theme="andre">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="de_CH" />
 		<title>{title}</title>
+		<script is:inline>
+			const t = localStorage.getItem('theme') || 'andre';
+			document.documentElement.setAttribute('data-theme', t);
+		</script>
 	</head>
 	<body class="bg-base-100 text-base-content font-serif">
 		<Header />
