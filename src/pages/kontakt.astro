@@ -1,99 +1,102 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import kontakt from "../../content/kontakt.json";
-
-const formspreeUrl = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID}`;
 ---
 
 <Layout title="Kontakt – André Behr">
- <section class="page-section">
-   <p class="page-label">Kontakt</p>
-   <h1 class="page-title">{kontakt.header}</h1>
-   <div class="max-w-xl page-text space-y-6">
-     <p>{kontakt.intro}</p>
+  <section class="page-section">
+    <p class="page-label">Kontakt</p>
+    <h1 class="page-title">{kontakt.header}</h1>
+    <div class="max-w-xl page-text space-y-6">
+      <p>{kontakt.intro}</p>
 
-     <form id="kontakt-form" action={formspreeUrl} method="POST" class="space-y-4 mt-8">
-       <div>
-         <label class="contact-label">Name</label>
-         <input 
-           type="text" 
-           name="name" 
-           required
-           class="input input-bordered w-full mt-1"
-           placeholder="Ihr Name"
-         />
-       </div>
-       <div>
-         <label class="contact-label">Email</label>
-         <input 
-           type="email" 
-           name="email" 
-           required
-           class="input input-bordered w-full mt-1"
-           placeholder="Ihre Email"
-         />
-       </div>
-       <div>
-         <label class="contact-label">Nachricht</label>
-         <textarea 
-           name="nachricht" 
-           required
-           rows="5"
-           class="textarea textarea-bordered w-full mt-1"
-           placeholder="Ihre Nachricht"
-         />
-       </div>
-       <button type="submit" class="ref-btn w-full justify-center">
-         Nachricht senden
-       </button>
-     </form>
+      <form
+        id="kontakt-form"
+        method="POST"
+        name="kontakt"
+        data-netlify="true"
+        class="space-y-4 mt-8"
+      >
+        <input type="hidden" name="form-name" value="kontakt" />
+        <div>
+          <label class="contact-label">Name</label>
+          <input
+            type="text"
+            name="name"
+            required
+            class="input input-bordered w-full mt-1"
+            placeholder="Ihr Name"
+          />
+        </div>
+        <div>
+          <label class="contact-label">Email</label>
+          <input
+            type="email"
+            name="email"
+            required
+            class="input input-bordered w-full mt-1"
+            placeholder="Ihre Email"
+          />
+        </div>
+        <div>
+          <label class="contact-label">Nachricht</label>
+          <textarea
+            name="nachricht"
+            required
+            rows="5"
+            class="textarea textarea-bordered w-full mt-1"
+            placeholder="Ihre Nachricht"></textarea>
+        </div>
+        <button type="submit" class="ref-btn w-full justify-center">
+          Nachricht senden
+        </button>
+      </form>
 
-     <div id="danke" class="hidden page-text mt-8 p-6 border border-base-300">
-       <h2 class="item-title">Vielen Dank!</h2>
-       <p>Ihre Nachricht wurde erfolgreich gesendet. Ich melde mich so bald wie möglich bei Ihnen.</p>
-       <a href="/" class="ref-btn inline-flex mt-4">
-         Zurück zur Startseite
-       </a>
-     </div>
+      <div id="danke" class="hidden page-text mt-8 p-6 border border-base-300">
+        <h2 class="item-title">Vielen Dank!</h2>
+        <p>
+          Ihre Nachricht wurde erfolgreich gesendet. Ich melde mich so bald wie
+          möglich bei Ihnen.
+        </p>
+        <a href="/" class="ref-btn inline-flex mt-4"> Zurück zur Startseite </a>
+      </div>
 
-     <div class="space-y-3 mt-8">
-       <p>
-         <span class="contact-label">LinkedIn</span><br/>
-         <a
-           href={kontakt.linkedin}
-           target="_blank"
-           rel="noopener noreferrer"
-           class="contact-link"
-         >
-           {kontakt.linkedintxt}
-         </a>
-       </p>
-     </div>
-   </div>
- </section>
+      <div class="space-y-3 mt-8">
+        <p>
+          <span class="contact-label">LinkedIn</span><br />
+          <a
+            href={kontakt.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-link"
+          >
+            {kontakt.linkedintxt}
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <script>
- const form = document.getElementById('kontakt-form') as HTMLFormElement | null;
- const danke = document.getElementById('danke') as HTMLElement | null;
+  const form = document.getElementById(
+    "kontakt-form",
+  ) as HTMLFormElement | null;
+  const danke = document.getElementById("danke") as HTMLElement | null;
 
- if (!form) {
-  console.warn('Kontakt form not found');
-} else {
-  form.addEventListener('submit', async (e) => {
-   e.preventDefault();
-   const data = new FormData(form);
-   const response = await fetch(form.action, {
-     method: 'POST',
-     body: data,
-     headers: { 'Accept': 'application/json' }
-   });
-   if (response.ok) {
-      form.classList.add('hidden');
-      if (danke) {
-        danke.classList.remove('hidden');
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const response = await fetch("/", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (response.ok) {
+        form.classList.add("hidden");
+        if (danke) danke.classList.remove("hidden");
       }
-   }
- });
-}
+    });
+  }
 </script>
