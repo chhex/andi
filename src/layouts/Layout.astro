@@ -37,6 +37,22 @@ const ogImage = Astro.site
 					}
 				});
 			}
+
+			// Handle identity redirect (Einladungslink, Passwort Reset etc.)
+			if (
+				window.location.hash &&
+				window.location.hash.includes("invite_token")
+			) {
+				(window as any).netlifyIdentity &&
+					(window as any).netlifyIdentity.open("invite");
+			}
+			if (
+				window.location.hash &&
+				window.location.hash.includes("recovery_token")
+			) {
+				(window as any).netlifyIdentity &&
+					(window as any).netlifyIdentity.open("recovery");
+			}
 		</script>
 	</head>
 
