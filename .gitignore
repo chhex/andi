@@ -22,8 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-.env
-.env.production
+.claude/
+.vscode/
 
 # Local Netlify folder
 .netlify
