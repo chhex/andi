@@ -26,43 +26,88 @@ const getLabel = (typ: string) => {
     default: return "Artikel lesen";
   }
 };
+
+// Jahrzehnte dynamisch aus Daten berechnen
+const jahrzehnte = [...new Set(
+  referenzen.referenzen
+    .filter(r => r.datum)
+    .map(r => Math.floor(new Date(r.datum).getFullYear() / 10) * 10)
+)].sort();
 ---
 
 <Layout title="Referenzen – André Behr">
   <section class="page-section">
     <p class="page-label">Referenzen</p>
     <h1 class="page-title">Medien & Erfahrung</h1>
-    <div class="max-w-2xl space-y-8">
+
+    <!-- Filter Buttons -->
+    <div class="mb-8 space-y-4">
+      <div class="flex flex-wrap gap-2">
+        <span class="contact-label self-center">Typ:</span>
+        <button class="filter-btn filter-typ active ref-btn" data-typ="alle">Alle</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="link">Artikel</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="pdf">PDF</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="video">Video</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="audio">Audio</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="bild">Bild</button>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="contact-label self-center">Periode:</span>
+        <button class="filter-btn filter-jahr active ref-btn" data-jahrzehnt="alle">Alle</button>
+        {jahrzehnte.map(j => (
+          <button class="filter-btn filter-jahr ref-btn" data-jahrzehnt={j}>
+            {j}er
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Referenzen Liste -->
+    <div class="max-w-2xl space-y-8" id="referenzen-liste">
       {referenzen.referenzen.map((ref) => {
         const Icon = getIcon(ref.typ);
         const label = getLabel(ref.typ);
+        const jahr = ref.datum ? new Date(ref.datum).getFullYear() : null;
+        const jahrzehnt = jahr ? Math.floor(jahr / 10) * 10 : null;
+        const datumFormatiert = ref.datum 
+          ? new Date(ref.datum).toLocaleDateString('de-CH', { year: 'numeric', month: 'long' })
+          : null;
+
         return (
-          <div class="page-divider">
-            <p class="item-label">{ref.medium}</p>
+          <div 
+            class="page-divider ref-item" 
+            data-typ={ref.typ}
+            data-jahrzehnt={jahrzehnt}
+          >
+            <div class="flex items-start justify-between gap-4 mb-1">
+              <p class="item-label">{ref.medium}</p>
+              {datumFormatiert && (
+                <p class="item-label">{datumFormatiert}</p>
+              )}
+            </div>
             <h2 class="item-title">{ref.titel}</h2>
             <p class="item-text">{ref.beschreibung}</p>
 
             {ref.typ === "video" && ref.embed && (
-                ref.embed.includes("youtube") || ref.embed.includes("vimeo") ? (
-    <div class="mt-4 aspect-video w-full">
-      <iframe
-        src={ref.embed}
-        title={ref.titel}
-        class="w-full h-full"
-        allowfullscreen
-        loading="lazy"
-      />
-    </div>
-  ) : (
-    <div class="mt-4">
-      <video controls class="w-full">
-        <source src={ref.embed} type="video/mp4" />
-        Ihr Browser unterstützt kein Video.
-      </video>
-    </div>
-  )
-)}
-
+              ref.embed.includes("youtube") || ref.embed.includes("vimeo") ? (
+                <div class="mt-4 aspect-video w-full">
+                  <iframe
+                    src={ref.embed}
+                    title={ref.titel}
+                    class="w-full h-full"
+                    allowfullscreen
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div class="mt-4">
+                  <video controls class="w-full">
+                    <source src={ref.embed} type="video/mp4" />
+                    Ihr Browser unterstützt kein Video.
+                  </video>
+                </div>
+              )
+            )}
 
             {ref.typ === "audio" && ref.embed && (
               <div class="mt-4">
@@ -106,3 +151,42 @@ const getLabel = (typ: string) => {
     </div>
   </section>
 </Layout>
+
+<script>
+  let aktivTyp = 'alle';
+  let aktivJahrzehnt = 'alle';
+
+  const filterItems = () => {
+    const items = document.querySelectorAll('.ref-item');
+    items.forEach(item => {
+      const el = item as HTMLElement;
+      const typ = el.dataset.typ || '';
+      const jahrzehnt = el.dataset.jahrzehnt || '';
+
+      const typMatch = aktivTyp === 'alle' || typ === aktivTyp;
+      const jahrMatch = aktivJahrzehnt === 'alle' || jahrzehnt === aktivJahrzehnt;
+
+      el.style.display = typMatch && jahrMatch ? 'block' : 'none';
+    });
+  };
+
+  // Typ Filter
+  document.querySelectorAll('.filter-typ').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-typ').forEach(b => b.classList.remove('active', 'bg-base-300'));
+      btn.classList.add('active', 'bg-base-300');
+      aktivTyp = (btn as HTMLElement).dataset.typ || 'alle';
+      filterItems();
+    });
+  });
+
+  // Jahrzehnt Filter
+  document.querySelectorAll('.filter-jahr').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-jahr').forEach(b => b.classList.remove('active', 'bg-base-300'));
+      btn.classList.add('active', 'bg-base-300');
+      aktivJahrzehnt = (btn as HTMLElement).dataset.jahrzehnt || 'alle';
+      filterItems();
+    });
+  });
+</script>

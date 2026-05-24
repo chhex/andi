@@ -74,6 +74,7 @@ collections:
             fields:
               - { label: "Titel", name: "titel", widget: "string" }
               - { label: "Medium", name: "medium", widget: "string" }
+              - { label: "Publikationsdatum", name: "datum", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
               - { label: "Beschreibung", name: "beschreibung", widget: "text" }
               - label: "Typ"
                 name: "typ"
@@ -81,4 +82,3 @@ collections:
                 options: ["link", "pdf", "video", "audio", "bild"]
               - { label: "URL", name: "url", widget: "string", required: false }
               - { label: "Embed / Medienpfad", name: "embed", widget: "string", required: false }
-
