@@ -10,14 +10,18 @@ import kontakt from "../../content/kontakt.json";
     <div class="max-w-xl page-text space-y-6">
       <p>{kontakt.intro}</p>
 
-      <form
-        id="kontakt-form"
-        method="POST"
-        name="kontakt"
-        data-netlify="true"
-        class="space-y-4 mt-8"
-      >
-        <input type="hidden" name="form-name" value="kontakt" />
+      <form id="kontakt-form" method="POST" class="space-y-4 mt-8">
+        <input
+          type="hidden"
+          name="access_key"
+          value={import.meta.env.PUBLIC_WEB3FORMS_KEY}
+        />
+        <input
+          type="hidden"
+          name="subject"
+          value="Neue Kontaktanfrage – André Behr"
+        />
+        <input type="hidden" name="from_name" value="André Behr Website" />
         <div>
           <label class="contact-label">Name</label>
           <input
@@ -41,7 +45,7 @@ import kontakt from "../../content/kontakt.json";
         <div>
           <label class="contact-label">Nachricht</label>
           <textarea
-            name="nachricht"
+            name="message"
             required
             rows="5"
             class="textarea textarea-bordered w-full mt-1"
@@ -79,23 +83,20 @@ import kontakt from "../../content/kontakt.json";
 </Layout>
 
 <script>
-  const form = document.getElementById(
-    "kontakt-form",
-  ) as HTMLFormElement | null;
-  const danke = document.getElementById("danke") as HTMLElement | null;
+  const form = document.getElementById('kontakt-form') as HTMLFormElement | null;
+  const danke = document.getElementById('danke') as HTMLElement | null;
 
   if (form) {
-    form.addEventListener("submit", async (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = new FormData(form);
-      const response = await fetch("/", {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
       });
       if (response.ok) {
-        form.classList.add("hidden");
-        if (danke) danke.classList.remove("hidden");
+        form.classList.add('hidden');
+        if (danke) danke.classList.remove('hidden');
       }
     });
   }
