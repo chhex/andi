@@ -3,50 +3,50 @@
     {
       "titel": "Schach-News: Carlsen und Caruana überzeugen",
       "medium": "Tages-Anzeiger",
+      "beschreibung": "Hintergrundbericht über das Schachturnier in schwarz Weissenhus",
       "typ": "link",
       "url": "https://www.tagesanzeiger.ch/schach-news-carlsen-und-caruana-ueberzeugen-in-weissenhaus-663206189448",
-      "beschreibung": "Hintergrundbericht über das Schachturnier in Weissenhaus.",
       "embed": ""
     },
     {
       "titel": "Beispiel Reportage",
       "medium": "Verlag XYZ",
+      "beschreibung": "Ein Buch als Beispiel der schriftstellerischen Arbeit.",
       "typ": "pdf",
       "url": "/dokumente/artikel.pdf",
-      "beschreibung": "Ein Buch als Beispiel der schriftstellerischen Arbeit.",
       "embed": ""
     },
     {
       "titel": "Beispiel Youtube Video als Externer Link",
       "medium": "Whiskey Before Breakfast Channel",
+      "beschreibung": "Whiskey Before Breakfast - ein Beispiel Video Interview auf Youtube.",
       "typ": "video",
       "url": "https://www.youtube.com/watch?v=qo9fP2d-bsM",
-      "embed": "https://www.youtube.com/embed/qo9fP2d-bsM",
-      "beschreibung": "Whiskey Before Breakfast - ein Beispiel Video Interview auf Youtube."
+      "embed": "https://www.youtube.com/embed/qo9fP2d-bsM"
     },
     {
       "titel": "Lokales gespeichertes Video (mp4) Beispiel",
       "medium": "Guitar Lessons Channel",
+      "beschreibung": "Jake Workman - Billy In The Lowground Improv - ein Beispiel Video Interview als mp4 Datei.",
       "typ": "video",
       "url": "",
-      "embed": "/video/BillyInTheLowgroundImprov1.mp4",
-      "beschreibung": "Jake Workman - Billy In The Lowground Improv - ein Beispiel Video Interview als mp4 Datei."
+      "embed": "/video/BillyInTheLowgroundImprov1.mp4"
     },
     {
       "titel": "Lokales Audio Beispiel",
       "medium": "Beispiel Radio",
+      "beschreibung": "Ein Beispiel Radio Beitrag.",
       "typ": "audio",
       "url": "https://www.srf.ch",
-      "embed": "/audio/texas-gales.mp3",
-      "beschreibung": "Ein Beispiel Radio Beitrag."
+      "embed": "/audio/texas-gales.mp3"
     },
     {
       "titel": "Foto Reportage Beispiel",
       "medium": "NZZ",
+      "beschreibung": "Ein Beispiel Foto Reportage.",
       "typ": "bild",
       "url": "/images/andre.jpg",
-      "embed": "/images/andre.jpg",
-      "beschreibung": "Ein Beispiel Foto Reportage."
+      "embed": "/images/andre.jpg"
     }
   ]
 }
