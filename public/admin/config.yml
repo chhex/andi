@@ -1,7 +1,11 @@
 
 backend:
-  name: git-gateway
+  name: github
+  repo: chhex/andi
   branch: main
+  base_url: https://andi-chhexs.vercel.app
+  auth_endpoint: api/auth
+
 
 media_folder: public/images
 public_folder: /images
