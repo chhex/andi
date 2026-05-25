@@ -1,0 +1,149 @@
+---
+import Layout from "../layouts/Layout.astro";
+import referenzen from "../../content/referenzen.json";
+
+// Daten für Charts vorbereiten
+const refs = referenzen.referenzen;
+
+// Nach Typ gruppieren
+const nachTyp = refs.reduce(
+    (acc, ref) => {
+        acc[ref.typ] = (acc[ref.typ] || 0) + 1;
+        return acc;
+    },
+    {} as Record<string, number>,
+);
+
+// Nach Jahrzehnt gruppieren
+const nachJahrzehnt = refs.reduce(
+    (acc, ref) => {
+        if (ref.datum) {
+            const jahrzehnt =
+                Math.floor(new Date(ref.datum).getFullYear() / 10) * 10;
+            acc[jahrzehnt] = (acc[jahrzehnt] || 0) + 1;
+        }
+        return acc;
+    },
+    {} as Record<string, number>,
+);
+
+// Nach Tags gruppieren
+const nachTag = refs.reduce(
+    (acc, ref) => {
+        (ref.tags || []).forEach((tag) => {
+            acc[tag] = (acc[tag] || 0) + 1;
+        });
+        return acc;
+    },
+    {} as Record<string, number>,
+);
+
+// Bubble Chart Daten – pro Tag  ← NEU
+const bubbleTagData = Object.entries(nachTag).map(([tag, anzahl], index) => {
+  const tagRefs = refs.filter(r => (r.tags || []).includes(tag) && r.datum);
+  const jahre = tagRefs.map(r => new Date(r.datum).getFullYear());
+  const xMittel = jahre.length > 0
+    ? Math.round(jahre.reduce((a, b) => a + b, 0) / jahre.length)
+    : 2000;
+  return {
+    x: xMittel,
+    y: index % 8 + 1,
+    r: anzahl * 10,
+    tag: tag,
+    anzahl: anzahl
+  };
+});
+
+// Bubble Chart Daten – X: Jahr, Y: Tag Anzahl, R: Gesamtanzahl pro Jahr
+const bubbleData = Object.entries(nachJahrzehnt).map(([jahrzehnt, anzahl]) => ({
+    x: parseInt(jahrzehnt),
+    y: refs
+        .filter(
+            (r) =>
+                r.datum &&
+                Math.floor(new Date(r.datum).getFullYear() / 10) * 10 ===
+                    parseInt(jahrzehnt),
+        )
+        .reduce((sum, r) => sum + (r.tags || []).length, 0),
+    r: anzahl * 8,
+}));
+---
+
+<Layout title="Statistiken – André Behr">
+    <section class="page-section">
+        <p class="page-label">Statistiken</p>
+        <h1 class="page-title">Referenzen im Überblick</h1>
+
+        <div class="grid grid-cols-1 gap-12 max-w-3xl">
+            <!-- Bubble Chart -->
+            <div>
+                <h2 class="item-title">Publikationen nach Jahrzehnt</h2>
+                <p class="item-text">
+                    Grösse = Anzahl Referenzen, Höhe = Anzahl Tags
+                </p>
+                <div class="mt-4 border border-base-300 p-4">
+                    <canvas id="bubbleChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</Layout>
+<script define:vars={{ bubbleTagData }}>
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+    script.onload = () => {
+        const farben = [
+            "#4a6741", "#6b8f61", "#8fb085", "#2d4a3e",
+            "#8B4513", "#CD853F", "#4682B4", "#6A5ACD",
+            "#2E8B57", "#DC143C", "#FF8C00", "#9932CC",
+            "#008B8B", "#B8860B", "#556B2F", "#8B008B",
+        ];
+
+        new Chart(document.getElementById("bubbleChart"), {
+            type: "bubble",
+            data: {
+                datasets: bubbleTagData.map((d, i) => ({
+                    label: d.tag,
+                    data: [d],
+                    backgroundColor: farben[i % farben.length] + "90",
+                    borderColor: farben[i % farben.length],
+                    borderWidth: 1,
+                })),
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: "right",
+                        labels: { boxWidth: 12, font: { size: 11 } },
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                const d = ctx.raw;
+                                return [
+                                    `Tag: ${ctx.dataset.label}`,
+                                    `Ø Jahr: ${d.x}`,
+                                    `Anzahl: ${d.anzahl}`,
+                                ];
+                            },
+                        },
+                    },
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Durchschnittliches Publikationsjahr",
+                        },
+                    },
+                    y: {
+                        display: false,
+                    },
+                },
+            },
+        });
+    };
+    document.head.appendChild(script);
+</script>
