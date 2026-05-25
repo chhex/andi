@@ -1,58 +1,154 @@
 {
- "referenzen": [
-   {
-     "titel": "Schach-News: Carlsen und Caruana überzeugen",
-     "medium": "Tages-Anzeiger",
-     "datum": "2024-03-15",
-     "beschreibung": "Hintergrundbericht über das Schachturnier in schwarz Weissenhus",
-     "typ": "link",
-     "url": "https://www.tagesanzeiger.ch/schach-news-carlsen-und-caruana-ueberzeugen-in-weissenhaus-663206189448",
-     "embed": ""
-   },
-   {
-     "titel": "Beispiel Reportage",
-     "medium": "Verlag XYZ",
-     "datum": "2020-06-01",
-     "beschreibung": "Ein Buch als Beispiel der schriftstellerischen Arbeit.",
-     "typ": "pdf",
-     "url": "/dokumente/artikel.pdf",
-     "embed": ""
-   },
-   {
-     "titel": "Beispiel Youtube Video als Externer Link",
-     "medium": "Whiskey Before Breakfast Channel",
-     "datum": "2023-09-10",
-     "beschreibung": "Whiskey Before Breakfast - ein Beispiel Video Interview auf Youtube.",
-     "typ": "video",
-     "url": "https://www.youtube.com/watch?v=qo9fP2d-bsM",
-     "embed": "https://www.youtube.com/embed/qo9fP2d-bsM"
-   },
-   {
-     "titel": "Lokales gespeichertes Video (mp4) Beispiel",
-     "medium": "Guitar Lessons Channel",
-     "datum": "2023-11-20",
-     "beschreibung": "Jake Workman - Billy In The Lowground Improv - ein Beispiel Video Interview als mp4 Datei.",
-     "typ": "video",
-     "url": "",
-     "embed": "/video/BillyInTheLowgroundImprov1.mp4"
-   },
-   {
-     "titel": "Lokales Audio Beispiel",
-     "medium": "Beispiel Radio",
-     "datum": "2019-04-05",
-     "beschreibung": "Ein Beispiel Radio Beitrag.",
-     "typ": "audio",
-     "url": "https://www.srf.ch",
-     "embed": "/audio/texas-gales.mp3"
-   },
-   {
-     "titel": "Foto Reportage Beispiel",
-     "medium": "NZZ",
-     "datum": "2015-08-22",
-     "beschreibung": "Ein Beispiel Foto Reportage.",
-     "typ": "bild",
-     "url": "/images/andre.jpg",
-     "embed": "/images/andre.jpg"
-   }
- ]
+  "referenzen": [
+    {
+      "titel": "Schach-News: Carlsen und Caruana überzeugen",
+      "medium": "Tages-Anzeiger",
+      "datum": "2024-03-15",
+      "beschreibung": "Hintergrundbericht über das Schachturnier in Weissenhaus.",
+      "typ": "link",
+      "tags": ["Schach", "Sport", "Interview"],
+      "url": "https://www.tagesanzeiger.ch/schach-news-carlsen-und-caruana-ueberzeugen-in-weissenhaus-663206189448",
+      "embed": ""
+    },
+    {
+      "titel": "Beispiel Reportage",
+      "medium": "Verlag XYZ",
+      "datum": "2020-06-01",
+      "beschreibung": "Ein Buch als Beispiel der schriftstellerischen Arbeit.",
+      "typ": "pdf",
+      "tags": ["Buch", "Reportage"],
+      "url": "/dokumente/artikel.pdf",
+      "embed": ""
+    },
+    {
+      "titel": "Whiskey Before Breakfast – Video Interview",
+      "medium": "YouTube",
+      "datum": "2023-09-10",
+      "beschreibung": "Whiskey Before Breakfast - ein Beispiel Video Interview auf Youtube.",
+      "typ": "video",
+      "tags": ["Musik", "Interview", "Video"],
+      "url": "https://www.youtube.com/watch?v=qo9fP2d-bsM",
+      "embed": "https://www.youtube.com/embed/qo9fP2d-bsM"
+    },
+    {
+      "titel": "Jake Workman – Billy In The Lowground Improv",
+      "medium": "Guitar Lessons Channel",
+      "datum": "2023-11-20",
+      "beschreibung": "Jake Workman - Billy In The Lowground Improv - ein Beispiel Video als mp4 Datei.",
+      "typ": "video",
+      "tags": ["Musik", "Gitarre", "Video"],
+      "url": "",
+      "embed": "/video/BillyInTheLowgroundImprov1.mp4"
+    },
+    {
+      "titel": "Lokales Audio Beispiel",
+      "medium": "Beispiel Radio",
+      "datum": "2019-04-05",
+      "beschreibung": "Ein Beispiel Radio Beitrag.",
+      "typ": "audio",
+      "tags": ["Radio", "Interview"],
+      "url": "https://www.srf.ch",
+      "embed": "/audio/texas-gales.mp3"
+    },
+    {
+      "titel": "Foto Reportage Beispiel",
+      "medium": "NZZ",
+      "datum": "2015-08-22",
+      "beschreibung": "Ein Beispiel Foto Reportage.",
+      "typ": "bild",
+      "tags": ["Fotografie", "Reportage"],
+      "url": "/images/andre.jpg",
+      "embed": "/images/andre.jpg"
+    },
+    {
+      "titel": "Fussball WM Reportage",
+      "medium": "Tages-Anzeiger",
+      "datum": "2010-07-11",
+      "beschreibung": "Hintergrundbericht zur Fussball Weltmeisterschaft in Südafrika.",
+      "typ": "link",
+      "tags": ["Fussball", "Sport", "Reportage", "WM"],
+      "url": "https://www.tagesanzeiger.ch",
+      "embed": ""
+    },
+    {
+      "titel": "Tennis Interview mit Roger Federer",
+      "medium": "NZZ",
+      "datum": "2006-07-09",
+      "beschreibung": "Exklusives Interview mit Roger Federer nach seinem Wimbledon Sieg.",
+      "typ": "link",
+      "tags": ["Tennis", "Sport", "Interview", "Federer"],
+      "url": "https://www.nzz.ch",
+      "embed": ""
+    },
+    {
+      "titel": "Ski WM Bericht",
+      "medium": "Tages-Anzeiger",
+      "datum": "1996-02-15",
+      "beschreibung": "Bericht von der Ski Weltmeisterschaft in Sierra Nevada.",
+      "typ": "pdf",
+      "tags": ["Ski", "Sport", "WM", "Reportage"],
+      "url": "/dokumente/artikel.pdf",
+      "embed": ""
+    },
+    {
+      "titel": "Leichtathletik Olympia Barcelona",
+      "medium": "Tages-Anzeiger",
+      "datum": "1992-08-09",
+      "beschreibung": "Reportage von den Olympischen Spielen in Barcelona.",
+      "typ": "pdf",
+      "tags": ["Olympia", "Sport", "Leichtathletik", "Reportage"],
+      "url": "/dokumente/artikel.pdf",
+      "embed": ""
+    },
+    {
+      "titel": "Eishockey WM Bericht",
+      "medium": "NZZ",
+      "datum": "1985-04-20",
+      "beschreibung": "Bericht von der Eishockey Weltmeisterschaft.",
+      "typ": "link",
+      "tags": ["Eishockey", "Sport", "WM"],
+      "url": "https://www.nzz.ch",
+      "embed": ""
+    },
+    {
+      "titel": "Radio Interview Schweizer Sport",
+      "medium": "SRF Radio",
+      "datum": "2000-06-15",
+      "beschreibung": "Radio Interview über den Schweizer Sport.",
+      "typ": "audio",
+      "tags": ["Radio", "Sport", "Interview", "Schweiz"],
+      "url": "https://www.srf.ch",
+      "embed": "/audio/texas-gales.mp3"
+    },
+    {
+      "titel": "Porträt Schweizer Athleten",
+      "medium": "NZZ",
+      "datum": "2008-08-15",
+      "beschreibung": "Bildreportage von den Olympischen Spielen in Peking.",
+      "typ": "bild",
+      "tags": ["Olympia", "Sport", "Fotografie", "Schweiz"],
+      "url": "/images/andre.jpg",
+      "embed": "/images/andre.jpg"
+    },
+    {
+      "titel": "Tour de Suisse Reportage",
+      "medium": "Tages-Anzeiger",
+      "datum": "2012-06-17",
+      "beschreibung": "Hintergrundbericht zur Tour de Suisse.",
+      "typ": "link",
+      "tags": ["Radsport", "Sport", "Schweiz", "Reportage"],
+      "url": "https://www.tagesanzeiger.ch",
+      "embed": ""
+    },
+    {
+      "titel": "Formel 1 Interview",
+      "medium": "NZZ",
+      "datum": "2003-05-18",
+      "beschreibung": "Interview mit einem Formel 1 Fahrer am Grand Prix.",
+      "typ": "video",
+      "tags": ["Formel1", "Sport", "Interview", "Video"],
+      "url": "https://www.youtube.com/watch?v=qo9fP2d-bsM",
+      "embed": "https://www.youtube.com/embed/qo9fP2d-bsM"
+    }
+  ]
 }

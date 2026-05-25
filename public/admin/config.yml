@@ -82,3 +82,5 @@ collections:
                 options: ["link", "pdf", "video", "audio", "bild"]
               - { label: "URL", name: "url", widget: "string", required: false }
               - { label: "Embed / Medienpfad", name: "embed", widget: "string", required: false }
+              - { label: "Tags", name: "tags", widget: "list", field: { label: "Tag", name: "tag", widget: "string" } }
+
