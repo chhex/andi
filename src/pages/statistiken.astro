@@ -40,18 +40,19 @@ const nachTag = refs.reduce(
 
 // Bubble Chart Daten – pro Tag  ← NEU
 const bubbleTagData = Object.entries(nachTag).map(([tag, anzahl], index) => {
-  const tagRefs = refs.filter(r => (r.tags || []).includes(tag) && r.datum);
-  const jahre = tagRefs.map(r => new Date(r.datum).getFullYear());
-  const xMittel = jahre.length > 0
-    ? Math.round(jahre.reduce((a, b) => a + b, 0) / jahre.length)
-    : 2000;
-  return {
-    x: xMittel,
-    y: index % 8 + 1,
-    r: anzahl * 10,
-    tag: tag,
-    anzahl: anzahl
-  };
+    const tagRefs = refs.filter((r) => (r.tags || []).includes(tag) && r.datum);
+    const jahre = tagRefs.map((r) => new Date(r.datum).getFullYear());
+    const xMittel =
+        jahre.length > 0
+            ? Math.round(jahre.reduce((a, b) => a + b, 0) / jahre.length)
+            : 2000;
+    return {
+        x: xMittel,
+        y: (index % 8) + 1,
+        r: anzahl * 10,
+        tag: tag,
+        anzahl: anzahl,
+    };
 });
 
 // Bubble Chart Daten – X: Jahr, Y: Tag Anzahl, R: Gesamtanzahl pro Jahr
@@ -83,9 +84,12 @@ const bubbleData = Object.entries(nachJahrzehnt).map(([jahrzehnt, anzahl]) => ({
                 </p>
                 <div class="mt-4 border border-base-300 p-4">
                     <canvas id="bubbleChart"></canvas>
+                    <p class="text-xs text-base-content/40 mt-2 text-center">
+                        Auf einen Kreis klicken um die entsprechenden Referenzen
+                        anzuzeigen
+                    </p>
                 </div>
             </div>
-
         </div>
     </section>
 </Layout>
@@ -94,10 +98,22 @@ const bubbleData = Object.entries(nachJahrzehnt).map(([jahrzehnt, anzahl]) => ({
     script.src = "https://cdn.jsdelivr.net/npm/chart.js";
     script.onload = () => {
         const farben = [
-            "#4a6741", "#6b8f61", "#8fb085", "#2d4a3e",
-            "#8B4513", "#CD853F", "#4682B4", "#6A5ACD",
-            "#2E8B57", "#DC143C", "#FF8C00", "#9932CC",
-            "#008B8B", "#B8860B", "#556B2F", "#8B008B",
+            "#4a6741",
+            "#6b8f61",
+            "#8fb085",
+            "#2d4a3e",
+            "#8B4513",
+            "#CD853F",
+            "#4682B4",
+            "#6A5ACD",
+            "#2E8B57",
+            "#DC143C",
+            "#FF8C00",
+            "#9932CC",
+            "#008B8B",
+            "#B8860B",
+            "#556B2F",
+            "#8B008B",
         ];
 
         new Chart(document.getElementById("bubbleChart"), {
@@ -141,6 +157,15 @@ const bubbleData = Object.entries(nachJahrzehnt).map(([jahrzehnt, anzahl]) => ({
                     y: {
                         display: false,
                     },
+                },
+                onClick: (event, elements) => {
+                    if (elements.length > 0) {
+                        const index = elements[0].datasetIndex;
+                        const tag = bubbleTagData[index].tag;
+                        const jahr = bubbleTagData[index].x;
+                        const jahrzehnt = Math.floor(jahr / 10) * 10;
+                        window.location.href = `/referenzen?tag=${encodeURIComponent(tag)}&jahrzehnt=${jahrzehnt}`;
+                    }
                 },
             },
         });

@@ -248,7 +248,7 @@ const alleTags = [
 </Layout>
 
 <script>
-  let aktivTyp = 'alle';
+    let aktivTyp = 'alle';
   let aktivJahrzehnt = 'alle';
   let aktivTags: string[] = [];
 
@@ -287,11 +287,10 @@ const alleTags = [
       </span>
     `).join('');
 
-    labelEl.textContent = aktivTags.length === 0 
-      ? 'Tags auswählen' 
+    labelEl.textContent = aktivTags.length === 0
+      ? 'Tags auswählen'
       : `${aktivTags.length} Tag${aktivTags.length !== 1 ? 's' : ''} gewählt`;
 
-    // Badge Remove Buttons
     document.querySelectorAll('.tag-badge-remove').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -340,7 +339,6 @@ const alleTags = [
     dropdown?.classList.toggle('hidden');
   });
 
-  // Dropdown schliessen bei Klick ausserhalb
   document.addEventListener('click', () => {
     dropdown?.classList.add('hidden');
   });
@@ -374,7 +372,27 @@ const alleTags = [
     filterItems();
   });
 
-  // Initial
+  // URL Parameter – nach allem anderen initialisieren
+  const urlParams = new URLSearchParams(window.location.search);
+  const tagParam = urlParams.get('tag');
+  const jahrzehntParam = urlParams.get('jahrzehnt');
+
+  if (tagParam) {
+    aktivTags = [tagParam];
+    const checkbox = document.querySelector(
+      `input[type="checkbox"][value="${tagParam}"]`
+    ) as HTMLInputElement;
+    if (checkbox) checkbox.checked = true;
+    updateBadges();
+  }
+
+  if (jahrzehntParam) {
+    aktivJahrzehnt = jahrzehntParam;
+    setFilter('jahr', jahrzehntParam);
+  }
+
+  // Initial – ganz am Schluss
   filterItems();
   updateBadges();
+
 </script>
