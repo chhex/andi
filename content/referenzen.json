@@ -10,6 +10,16 @@
       "url": "https://www.tagesanzeiger.ch/schach-news-carlsen-und-caruana-ueberzeugen-in-weissenhaus-663206189448",
       "embed": ""
     },
+     {
+      "titel": "Schach-News: Carlsen PdF Print Beispiel",
+      "medium": "Tages-Anzeiger",
+      "datum": "2024-03-15",
+      "beschreibung": "Carlsen Fischer Beispiel als PDF Print.",
+      "typ": "pdf",
+      "tags": ["Schach", "Sport", "Interview"],
+      "url": "/dokumente/carlsen.pdf",
+      "embed": ""
+    },
     {
       "titel": "Beispiel Reportage",
       "medium": "Verlag XYZ",
