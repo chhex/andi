@@ -4,7 +4,6 @@
 
 Portfolio-Website für André Behr, Journalist mit über 40 Jahren Erfahrung.
 Gebaut als JAMstack Site – schnell, sicher, wartungsarm.
-Kleine Aenderung
 
 ## Stack
 
