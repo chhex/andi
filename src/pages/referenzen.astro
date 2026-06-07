@@ -1,55 +1,83 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import referenzen from "../../content/referenzen.json";
+import { getCollection, type CollectionEntry } from 'astro:content';
 import IconDownload from "../components/IconDownload.astro";
 import IconExternalLink from "../components/IconExternalLink.astro";
 import IconVideo from "../components/IconVideo.astro";
 import IconAudio from "../components/IconAudio.astro";
 import IconBild from "../components/IconBild.astro";
 
+type Referenz = {
+  titel: string;
+  datum?: string;
+  medium: string;
+  kategorie?: string;
+  tags?: string[];
+  highlight?: boolean;
+  typ: string;
+  datei: string;
+  vorschaubild: string;
+  beschreibung: string;
+};
+
+const archivEntries = await getCollection('archiv');
+
+const refs: Referenz[] = archivEntries
+  .sort((a: CollectionEntry<'archiv'>, b: CollectionEntry<'archiv'>) => 
+    new Date(b.data.datum).getTime() - new Date(a.data.datum).getTime()
+  )
+  .map((entry: CollectionEntry<'archiv'>) => ({
+    titel: entry.data.titel,
+    datum: entry.data.datum,
+    medium: entry.data.medium,
+    kategorie: entry.data.kategorie,
+    tags: entry.data.tags,
+    highlight: entry.data.highlight,
+    typ: entry.data.typ,
+    datei: entry.data.datei || '',
+    vorschaubild: entry.data.vorschaubild || '',
+    beschreibung: entry.body,
+  }));
+
 const getIcon = (typ: string) => {
   switch (typ) {
-    case "pdf":
-      return IconDownload;
-    case "video":
-      return IconVideo;
-    case "audio":
-      return IconAudio;
-    case "bild":
-      return IconBild;
-    default:
-      return IconExternalLink;
+    case "pdf": return IconDownload;
+    case "video": return IconVideo;
+    case "audio": return IconAudio;
+    case "bild": return IconBild;
+    default: return IconExternalLink;
   }
 };
 
 const getLabel = (typ: string) => {
   switch (typ) {
-    case "pdf":
-      return "PDF öffnen";
-    case "video":
-      return "Video ansehen";
-    case "audio":
-      return "Audio anhören";
-    case "bild":
-      return "Bild ansehen";
-    default:
-      return "Artikel lesen";
+    case "pdf": return "PDF öffnen";
+    case "video": return "Video ansehen";
+    case "audio": return "Audio anhören";
+    case "bild": return "Bild ansehen";
+    default: return "Artikel lesen";
   }
 };
 
-// Jahrzehnte dynamisch berechnen
 const jahrzehnte = [
   ...new Set(
-    referenzen.referenzen
-      .filter((r) => r.datum)
-      .map((r) => Math.floor(new Date(r.datum).getFullYear() / 10) * 10),
+    refs
+      .filter((r) => r.datum !== undefined && r.datum !== '')
+      .map((r) => Math.floor(new Date(r.datum!).getFullYear() / 10) * 10)
   ),
 ].sort();
 
-// Alle Tags dynamisch sammeln
 const alleTags = [
-  ...new Set(referenzen.referenzen.flatMap((r) => r.tags || [])),
+  ...new Set(refs.flatMap((r) => r.tags || [])),
 ].sort();
+
+const getMediaUrl = (datei: string, typ: string = 'link') => {
+  if (datei.startsWith('http') || datei.startsWith('/')) return datei;
+  if (typ === 'pdf' || typ === 'video' || typ === 'audio' || typ === 'bild') {
+    return `https://drive.google.com/file/d/${datei}/preview`;
+  }
+  return `https://drive.google.com/uc?export=download&id=${datei}`;
+};
 ---
 
 <Layout title="Referenzen – André Behr">
@@ -61,183 +89,171 @@ const alleTags = [
     <div class="mb-8 space-y-4">
       <div class="flex flex-wrap gap-2 items-center">
         <span class="contact-label w-16">Typ:</span>
-        <button class="filter-btn filter-typ ref-btn active" data-typ="alle"
-          >Alle</button
-        >
-        <button class="filter-btn filter-typ ref-btn" data-typ="link"
-          >Artikel</button
-        >
-        <button class="filter-btn filter-typ ref-btn" data-typ="pdf">PDF</button
-        >
-        <button class="filter-btn filter-typ ref-btn" data-typ="video"
-          >Video</button
-        >
-        <button class="filter-btn filter-typ ref-btn" data-typ="audio"
-          >Audio</button
-        >
-        <button class="filter-btn filter-typ ref-btn" data-typ="bild"
-          >Bild</button
-        >
+        <button class="filter-btn filter-typ ref-btn active" data-typ="alle">Alle</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="link">Artikel</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="pdf">PDF</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="video">Video</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="audio">Audio</button>
+        <button class="filter-btn filter-typ ref-btn" data-typ="bild">Bild</button>
       </div>
       <div class="flex flex-wrap gap-2 items-center">
         <span class="contact-label w-16">Periode:</span>
-        <button
-          class="filter-btn filter-jahr ref-btn active"
-          data-jahrzehnt="alle">Alle</button
-        >
-        {
-          jahrzehnte.map((j) => (
-            <button class="filter-btn filter-jahr ref-btn" data-jahrzehnt={j}>
-              {j}er
-            </button>
-          ))
-        }
+        <button class="filter-btn filter-jahr ref-btn active" data-jahrzehnt="alle">Alle</button>
+        {jahrzehnte.map((j) => (
+          <button class="filter-btn filter-jahr ref-btn" data-jahrzehnt={j}>
+            {j}er
+          </button>
+        ))}
       </div>
       <div class="flex flex-wrap gap-2 items-center">
         <span class="contact-label w-16">Tags:</span>
         <div class="relative" id="tag-dropdown-container">
-          <button
-            id="tag-dropdown-btn"
-            class="ref-btn gap-2 min-w-48 justify-between"
-          >
+          <button id="tag-dropdown-btn" class="ref-btn gap-2 min-w-48 justify-between">
             <span id="tag-dropdown-label">Tags auswählen</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M19 9l-7 7-7-7"></path>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div
-            id="tag-dropdown"
-            class="hidden absolute z-10 mt-1 w-64 bg-base-100 border border-base-300 shadow-lg max-h-64 overflow-y-auto"
-          >
-            {
-              alleTags.map((tag) => (
-                <label class="flex items-center gap-3 px-4 py-2 hover:bg-base-200 cursor-pointer text-sm">
-                  <input
-                    type="checkbox"
-                    class="checkbox checkbox-sm"
-                    value={tag}
-                  />
-                  <span>{tag}</span>
-                </label>
-              ))
-            }
+          <div id="tag-dropdown" class="hidden absolute z-10 mt-1 w-64 bg-base-100 border border-base-300 shadow-lg max-h-64 overflow-y-auto">
+            {alleTags.map((tag) => (
+              <label class="flex items-center gap-3 px-4 py-2 hover:bg-base-200 cursor-pointer text-sm">
+                <input type="checkbox" class="checkbox checkbox-sm" value={tag} />
+                <span>{tag}</span>
+              </label>
+            ))}
           </div>
         </div>
-        <button id="tag-reset" class="ref-btn"> Reset </button>
+        <button id="tag-reset" class="ref-btn">Reset</button>
         <div id="tag-badges" class="flex flex-wrap gap-1"></div>
       </div>
     </div>
 
-    <!-- Anzahl sichtbare Referenzen -->
+    <!-- Anzahl -->
     <p class="item-label mb-4" id="anzahl"></p>
 
     <!-- Referenzen Liste -->
     <div class="max-w-2xl space-y-8" id="referenzen-liste">
-      {
-        referenzen.referenzen.map((ref) => {
-          const Icon = getIcon(ref.typ);
-          const label = getLabel(ref.typ);
-          const jahr = ref.datum ? new Date(ref.datum).getFullYear() : null;
-          const jahrzehnt = jahr ? Math.floor(jahr / 10) * 10 : null;
-          const datumFormatiert = ref.datum
-            ? new Date(ref.datum).toLocaleDateString("de-CH", {
-                year: "numeric",
-                month: "long",
-              })
-            : null;
+      {refs.map((ref) => {
+        const Icon = getIcon(ref.typ);
+        const label = getLabel(ref.typ);
+        const jahr = ref.datum ? new Date(ref.datum).getFullYear() : null;
+        const jahrzehnt = jahr ? Math.floor(jahr / 10) * 10 : null;
+        const datumFormatiert = ref.datum
+          ? new Date(ref.datum).toLocaleDateString("de-CH", {
+              year: "numeric",
+              month: "long",
+            })
+          : null;
 
-          return (
-            <div
-              class="page-divider ref-item"
-              data-typ={ref.typ}
-              data-jahrzehnt={jahrzehnt}
-              data-tags={JSON.stringify(ref.tags || [])}
-            >
-              <div class="flex items-start justify-between gap-4 mb-1">
-                <p class="item-label">{ref.medium}</p>
-                {datumFormatiert && <p class="item-label">{datumFormatiert}</p>}
-              </div>
-              <h2 class="item-title">{ref.titel}</h2>
-              <p class="item-text">{ref.beschreibung}</p>
+        return (
+          <div
+            class="page-divider ref-item"
+            data-typ={ref.typ}
+            data-jahrzehnt={jahrzehnt}
+            data-tags={JSON.stringify(ref.tags || [])}
+          >
+            <div class="flex items-start justify-between gap-4 mb-1">
+              <p class="item-label">{ref.medium}</p>
+              {datumFormatiert && <p class="item-label">{datumFormatiert}</p>}
+            </div>
+            {ref.highlight && (
+              <span class="text-xs border border-primary text-primary px-2 py-0.5 mb-2 inline-block">
+                ★ Highlight
+              </span>
+            )}
+            <h2 class="item-title">{ref.titel}</h2>
+            <p class="item-text">{ref.beschreibung}</p>
 
-              {ref.tags && ref.tags.length > 0 && (
-                <div class="flex flex-wrap gap-1 mb-3">
-                  {ref.tags.map((tag) => (
-                    <span class="text-xs border border-base-300 px-2 py-0.5 text-base-content/50">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {ref.typ === "video" &&
-                ref.embed &&
-                (ref.embed.includes("youtube") ||
-                ref.embed.includes("vimeo") ? (
-                  <div class="mt-4 aspect-video w-full">
-                    <iframe
-                      src={ref.embed}
-                      title={ref.titel}
-                      class="w-full h-full"
-                      allowfullscreen
-                      loading="lazy"
-                    />
-                  </div>
-                ) : (
-                  <div class="mt-4">
-                    <video controls class="w-full">
-                      <source src={ref.embed} type="video/mp4" />
-                      Ihr Browser unterstützt kein Video.
-                    </video>
-                  </div>
+            {ref.tags && ref.tags.length > 0 && (
+              <div class="flex flex-wrap gap-1 mb-3">
+                {ref.tags.map((tag) => (
+                  <span class="text-xs border border-base-300 px-2 py-0.5 text-base-content/50">
+                    {tag}
+                  </span>
                 ))}
+              </div>
+            )}
 
-              {ref.typ === "audio" && ref.embed && (
-                <div class="mt-4">
-                  <audio controls class="w-full">
-                    <source src={ref.embed} type="audio/mpeg" />
-                    Ihr Browser unterstützt kein Audio.
-                  </audio>
+            {ref.typ === "video" && ref.datei && (
+              ref.datei.includes("youtube") || ref.datei.includes("vimeo") ? (
+                <div class="mt-4 aspect-video w-full">
+                  <iframe
+                    src={ref.datei}
+                    title={ref.titel}
+                    class="w-full h-full"
+                    allowfullscreen
+                    loading="lazy"
+                  />
                 </div>
-              )}
+              ) : (
+                <div class="mt-4 aspect-video w-full">
+                  <iframe
+                    src={getMediaUrl(ref.datei, ref.typ)}
+                    title={ref.titel}
+                    class="w-full h-full"
+                    allowfullscreen
+                    loading="lazy"
+                  />
+                </div>
+              )
+            )}
 
-              {ref.typ === "bild" && ref.embed && (
+            {ref.typ === "audio" && ref.datei && (
+              <div class="mt-4 w-full" style="height: 120px;">
+                <iframe
+                  src={getMediaUrl(ref.datei, ref.typ)}
+                  class="w-full h-full"
+                  loading="lazy"
+                  allow="autoplay"
+                />
+              </div>
+            )}
+
+            {ref.typ === "bild" && ref.datei && (
+              ref.datei.startsWith('http') || ref.datei.startsWith('/') ? (
                 <div class="mt-4">
                   <img
-                    src={ref.embed}
+                    src={ref.datei}
                     alt={ref.titel}
                     class="w-full object-cover"
                     loading="lazy"
                   />
                 </div>
-              )}
+              ) : (
+                <div class="mt-4 w-full" style="height: 400px;">
+                  <iframe
+                    src={getMediaUrl(ref.datei, ref.typ)}
+                    class="w-full h-full"
+                    loading="lazy"
+                  />
+                </div>
+              )
+            )}
 
-              {ref.url &&
-                (!ref.embed || ref.typ === "link" || ref.typ === "pdf") && (
-                  <a
-                    href={ref.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="ref-btn mt-4"
-                  >
-                    <Icon />
-                    {label}
-                  </a>
-                )}
-            </div>
-          );
-        })
-      }
+            {ref.typ === "pdf" && ref.datei && (
+              <div class="mt-4 w-full" style="height: 500px;">
+                <iframe
+                  src={getMediaUrl(ref.datei, ref.typ)}
+                  class="w-full h-full"
+                  loading="lazy"
+                />
+              </div>
+            )}
+
+            {ref.typ === "link" && ref.datei && (
+              <a
+                href={ref.datei}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ref-btn mt-4"
+              >
+                <Icon />
+                {label}
+              </a>
+            )}
+          </div>
+        );
+      })}
       <div class="page-divider-footer">
         <p class="page-text italic text-sm">
           Weitere Arbeitsproben auf Anfrage erhältlich.
@@ -248,7 +264,7 @@ const alleTags = [
 </Layout>
 
 <script>
-    let aktivTyp = 'alle';
+  let aktivTyp = 'alle';
   let aktivJahrzehnt = 'alle';
   let aktivTags: string[] = [];
 
@@ -312,7 +328,6 @@ const alleTags = [
       ?.classList.add('active', 'bg-base-300');
   };
 
-  // Typ Filter
   document.querySelectorAll('.filter-typ').forEach(btn => {
     btn.addEventListener('click', () => {
       aktivTyp = (btn as HTMLElement).dataset.typ || 'alle';
@@ -321,7 +336,6 @@ const alleTags = [
     });
   });
 
-  // Jahr Filter
   document.querySelectorAll('.filter-jahr').forEach(btn => {
     btn.addEventListener('click', () => {
       aktivJahrzehnt = (btn as HTMLElement).dataset.jahrzehnt || 'alle';
@@ -330,7 +344,6 @@ const alleTags = [
     });
   });
 
-  // Dropdown Toggle
   const dropdownBtn = document.getElementById('tag-dropdown-btn');
   const dropdown = document.getElementById('tag-dropdown');
 
@@ -347,7 +360,6 @@ const alleTags = [
     e.stopPropagation();
   });
 
-  // Checkboxen
   document.querySelectorAll('#tag-dropdown input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', () => {
       const checkbox = cb as HTMLInputElement;
@@ -362,7 +374,6 @@ const alleTags = [
     });
   });
 
-  // Reset
   document.getElementById('tag-reset')?.addEventListener('click', () => {
     aktivTags = [];
     document.querySelectorAll('#tag-dropdown input[type="checkbox"]').forEach(cb => {
@@ -372,7 +383,6 @@ const alleTags = [
     filterItems();
   });
 
-  // URL Parameter – nach allem anderen initialisieren
   const urlParams = new URLSearchParams(window.location.search);
   const tagParam = urlParams.get('tag');
   const jahrzehntParam = urlParams.get('jahrzehnt');
@@ -391,8 +401,6 @@ const alleTags = [
     setFilter('jahr', jahrzehntParam);
   }
 
-  // Initial – ganz am Schluss
   filterItems();
   updateBadges();
-
 </script>
