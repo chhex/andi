@@ -1,6 +1,6 @@
 ---
 titel: "Schach-News: Carlsen und Caruana überzeugen"
-datum: "2024-03-15"
+datum: "2010-03-15"
 medium: "Tages-Anzeiger"
 kategorie: "Sport"
 tags: ["Schach", "Sport", "Interview"]
